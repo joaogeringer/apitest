@@ -1,0 +1,18 @@
+import pandas as pd
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+@app.route('/')
+
+def homepage():
+ return 'A API está online'
+  
+@app.route('/pegarvendas')
+def pegarvendas():
+  tabela = pd.read_csv('basededados.csv')
+  total_vendas = tabela['Vendas'].sum()
+  resposta = {'Tota_vendas': total_vendas}
+  return jsonify(resposta)
+
+app.run(host='0.0.0.0')
